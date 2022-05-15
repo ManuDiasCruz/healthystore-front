@@ -15,8 +15,16 @@ export const HealthyStoreProvider = ({ children }) => {
         email: "", 
         password: "",
     });
+    const [ userInfos, setUserInfos ] = useState({}); // O TOKEN ESTÁ AQUI
     const [ signInSuccess, setSignInSuccess ] = useState(false)
-    console.log(infosLogin)
+    const [ infosBag, setInfosBag ] = useState([])
+    const [ checkout, setCheckout ] = useState({
+        address: "",
+        cpf: "",
+        payment: "",
+    })
+    const [ checkoutSuccess, setCheckoutSuccess ] = useState(false)
+
     const postSignUp = (signUp, e) => {
         e.preventDefault();
         axios.post("http://localhost:5500/sign-up", signUp)
@@ -33,8 +41,26 @@ export const HealthyStoreProvider = ({ children }) => {
                 token: answer.data.token,
             }));
             setSignInSuccess(true);
+            setUserInfos(answer.data);
         })
         .catch((e) => window.confirm(e.response.data));
+    }
+    const getBag = () => {
+        axios.get("http://localhost:5500/bag", {headers: {'Authorization': `Bearer ${userInfos.token}`}})
+        .then((answer) => setInfosBag(answer))
+        .catch((e) => window.confirm(e.response.data));
+    } //COLOCAR NO BOTÃO DA PÁGINA DO PRODUTO
+
+    const deletebag = (id) => {
+        axios.delete(`http://localhost:5500/bag/${id}`)
+        .then(() => getBag())
+        .catch((e) => window.confirm(e.response.data))
+    }
+
+    const postCheckout = (infos) => {
+        axios.postSignUp("http://localhost:5500/checkout", infos, {headers: {'Authorization': `Bearer ${userInfos.token}`}})
+        .then(() => setCheckoutSuccess(true))
+        .catch((e) => window.confirm(e.response.data))
     }
     
     return (
@@ -47,7 +73,15 @@ export const HealthyStoreProvider = ({ children }) => {
                 infosLogin,
                 setInfosLogin,
                 signInSuccess,
-                postSignIn
+                postSignIn,
+                userInfos,
+                getBag,
+                infosBag,
+                deletebag,
+                checkout,
+                setCheckout,
+                postCheckout,
+                checkoutSuccess
             }}
         >
             { children }

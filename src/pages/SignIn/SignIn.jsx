@@ -16,7 +16,7 @@ export default function SignIn() {
         setDisabled(true);
         postSignIn(infosLogin, e);
         if(signInSuccess === true){
-            navigate('/registers');
+            navigate('/bag');
         } else {
             setDisabled(false);
         }
@@ -44,12 +44,12 @@ export default function SignIn() {
                         value={password}
                         placeholder="senha"
                         pattern = "[0-9a-zA-Z]{3,30}"
-                        title = "A senha deve conter 8 caracterestes sendo: 1 número, 1 caractere especial e 1 letra maiúscula"
+                        title = "A senha deve conter no mínimo 4 caracteres e um número"
                         required
                         onChange={(e) => setInfosLogin({...infosLogin, password: e.target.value})}
                     />
                     <Button disabled={disabled} type="submit">
-                        <RenderButton state={true} text="Entrar"/>
+                        <RenderButton state={disabled} text="Entrar"/>
                     </Button>
                 </Form >
                     <Link to="/sign-up">

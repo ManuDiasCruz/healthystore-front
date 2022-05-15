@@ -15,7 +15,7 @@ export default function Register() {
         setDisabled(true);
         postSignUp(signUp, e);
         if(signUpSuccess === true){
-            navigate('/');
+            navigate('/sign-in');
         } else {
             setDisabled(false);
         }
@@ -144,11 +144,9 @@ const Button = styled.button`
     font-weight: 700;
     line-height: 26px;
     color: white;
-    cursor: pointer;
 
     &:disabled {
     opacity: 0.7;
-    cursor: default;
   }
 `
 const GoTo = styled.p`
