@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useContext, useEffect } from "react";
-import UserContext from "../../contexts/UserContext";
 
 import login from "../../assets/icons/user-application-identity-authentication-login-svgrepo-com.svg";
 import shoppingbag from "../../assets/icons/shopping-bag-svgrepo-com.svg";
@@ -15,8 +14,6 @@ import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
 import Icon from "../../components/CSSStyles/Icon";
 
 export default function HomePage(){
-    const {user} = useContext(UserContext)
-
    
     return (
         <>
