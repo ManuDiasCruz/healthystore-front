@@ -104,12 +104,10 @@ export default function HomePage(){
                         products.length > 0 ?
                         products.map( product => {
                             const {_id, name, description, value, image, category} = product;
-                            const linkName = name.replaceAll(" ", "-");
-                            console.log(linkName);
                             return (
                                 <Product>
                                     <Link to={`/product/${_id}`}>
-                                        <img src={image} alt={name} />
+                                        <img src={image} alt="" />
                                         <h1>{name}</h1>
                                         <h2>R$ {value}</h2>
                                     </Link>

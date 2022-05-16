@@ -25,6 +25,8 @@ export const HealthyStoreProvider = ({ children }) => {
     })
     const [ checkoutSuccess, setCheckoutSuccess ] = useState(false)
     const [ infosOrders, setInfosOrders ] = useState({})
+    const [ addBag, setAddBag ] = useState({})
+    const [ addBagSuccess, setAddBagSuccess ] = useState(false)
 
     const postSignUp = (signUp, e) => {
         e.preventDefault();
@@ -46,6 +48,15 @@ export const HealthyStoreProvider = ({ children }) => {
         })
         .catch((e) => window.confirm(e.response.data));
     }
+
+    const postBag = (infosProduct) => {
+        console.log("post")
+        console.log(userInfos.token)
+        axios.post("http://localhost:5500/bag", infosProduct,  {headers: {'Authorization': `Bearer ${userInfos.token}`}})
+        .then(() => {setAddBagSuccess(true); alert('Produto adiconado a sacola')})
+        .catch((e) => window.confirm(e.response.data))
+    }
+
     const getBag = () => {
         axios.get("http://localhost:5500/bag", {headers: {'Authorization': `Bearer ${userInfos.token}`}})
         .then((answer) => setInfosBag(answer))
@@ -90,7 +101,11 @@ export const HealthyStoreProvider = ({ children }) => {
                 postCheckout,
                 checkoutSuccess,
                 infosOrders,
-                getCheckout
+                getCheckout,
+                addBag,
+                setAddBag,
+                postBag,
+                addBagSuccess
             }}
         >
             { children }

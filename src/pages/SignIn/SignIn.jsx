@@ -16,7 +16,7 @@ export default function SignIn() {
         setDisabled(true);
         postSignIn(infosLogin, e);
         if(signInSuccess === true){
-            navigate('/bag');
+            navigate('/');
         } else {
             setDisabled(false);
         }
