@@ -18,7 +18,6 @@ export default function Product(){
                 await axios.get(
                     `http://localhost:5500/product/${productId}`)
                 .then((answer) => {
-                    console.log(answer.data);
                     setAddBag(answer.data);
                 })
                 .catch((error) => console.log(error))       
@@ -35,12 +34,10 @@ export default function Product(){
         productName: addBag.name,
         quantity: number,
     }
-    console.log(productInfos)
 
     function SendBag(e) {
         e.preventDefault()
         setDisabled(true)
-        console.log(productInfos)
         postBag(productInfos);
         if(addBagSuccess === true){
             navigate('/bag')

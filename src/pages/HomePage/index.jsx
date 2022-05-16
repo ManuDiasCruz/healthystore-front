@@ -14,7 +14,6 @@ import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
 export default function HomePage(){
     const [products, setProducts] = useState([]);
     const { userInfos } = useContext(HealthyStoreContexts);
-    console.log(userInfos);
    
     useEffect(() => {
         async function getProducts(){
@@ -22,7 +21,6 @@ export default function HomePage(){
                 const res = await axios.get(
                     "http://localhost:5500/products")
                 const {data} = res;                
-                console.log("HomePage: ", res)
                 setProducts(data);
             } catch (error) {
                 console.log("Error getting products list.", error)
@@ -131,6 +129,7 @@ const Center = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: white;
     border-radius: 40px 40px 0px 0px;
     margin-top: 0px;
@@ -143,6 +142,7 @@ const Header = styled.div`
     align-items: center;
 `
 const WelcomeBar = styled.div`
+    width: 90%;
     font-family: 'Poiret One', cursive;
     color: #000000;
     margin: 20px 20px 10px 20px;
@@ -161,6 +161,7 @@ const WelcomeBar = styled.div`
 `
 const NavBar = styled.div`
     height: 100px;
+    width: 90%;
     font-family: 'Raleway', sans-serif;
     background-color: #FF9859;
     margin: 20px 18px 18px;
@@ -198,7 +199,7 @@ const Element = styled.div`
     }
 `
 const ProductList = styled.div`
-    width: 100vw;
+    width: 90%;
     padding: 0px 40px;
     display: flex;
     flex-direction: row;
@@ -207,14 +208,14 @@ const ProductList = styled.div`
 `
 const Product = styled.div`
     width: 200px;
-    height: 200px;
-
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     img{
         max-width: 160px;
+        height: 160px;
     }
 
     h1{

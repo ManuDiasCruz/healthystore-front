@@ -10,8 +10,7 @@ export default function PayInfos(){
     const [ disabled, setDisabled ] = useState(false);
 
     const navigate = useNavigate();
-    console.log(checkout)
-
+    
     function OnSubmit(e) {
         if(!window.confirm('Gostaria de finalizar a compra?')){
             return
