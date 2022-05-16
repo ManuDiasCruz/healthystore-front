@@ -50,16 +50,16 @@ export const HealthyStoreProvider = ({ children }) => {
     }
 
     const postBag = (infosProduct) => {
-        console.log("post")
-        console.log(userInfos.token)
         axios.post("http://localhost:5500/bag", infosProduct,  {headers: {'Authorization': `Bearer ${userInfos.token}`}})
-        .then(() => {setAddBagSuccess(true); alert('Produto adiconado a sacola')})
+        .then((e) => {setAddBagSuccess(true); alert('Produto adiconado a sacola')})
+        .then(() => getBag())
         .catch((e) => window.confirm(e.response.data))
     }
 
     const getBag = () => {
+        console.log("entrei")
         axios.get("http://localhost:5500/bag", {headers: {'Authorization': `Bearer ${userInfos.token}`}})
-        .then((answer) => setInfosBag(answer))
+        .then((answer) => {setInfosBag(answer.data); console.log(infosBag)})
         .catch((e) => window.confirm(e.response.data));
     } //COLOCAR NO BOTÃO DA PÁGINA DO PRODUTO
 

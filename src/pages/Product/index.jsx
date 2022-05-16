@@ -31,16 +31,22 @@ export default function Product(){
         getProduct()
     }, []);
 
+    const navigate = useNavigate();
+
     const productInfos = {
         productName: addBag.name,
         quantity: (number*addBag.value).toFixed(2),
     }
     console.log(productInfos)
 
-    function SendBag() {
+    function SendBag(e) {
+        e.preventDefault()
         setDisabled(true)
         console.log(productInfos)
         postBag(productInfos);
+        if(addBagSuccess == true){
+            navigate('/bag')
+        }
         setDisabled(false)
     }
 
@@ -76,7 +82,7 @@ export default function Product(){
                     </Quantity>
                     <Value>R$ {(number*addBag.value).toFixed(2)}</Value>
                 </Price>
-                <Button onClick={() => SendBag()} >
+                <Button onClick={(e) => SendBag(e)} >
                     <RenderButton state={disabled} text="Adicionar a sacola"/>
                 </Button>
             </Footer>

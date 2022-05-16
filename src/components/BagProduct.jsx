@@ -31,8 +31,8 @@ export default function BagProduct() {
 }
 
 const Product = styled.div`
-    width: 90%;
-    min-height: 20%;
+    width: 85%;
+    height: auto;
     background: grey;
     border-radius: 20px;
     margin-bottom: 10px;
@@ -43,7 +43,6 @@ const Product = styled.div`
 const Margin = styled.div`
     width: 95%;
     height: 85%;
-
     border-radius: 20px;
     display: flex;
     justify-content: flex-start;
