@@ -17,13 +17,15 @@ export default function Product(){
             try{
                 const res = await axios.get(
                     `http://localhost:5500/product/${productId}`)
-                const {data} = res;           
+                .then((answer) => console.log(answer.data))
+                .catch((error) => console.log(error))       
             } catch (error) {
                 console.log("Error getting products list.", error)
             }
         }
         getProduct()
     }, []);
+
 
     return (
         <Container>

@@ -24,6 +24,7 @@ export const HealthyStoreProvider = ({ children }) => {
         payment: "",
     })
     const [ checkoutSuccess, setCheckoutSuccess ] = useState(false)
+    const [ infosOrders, setInfosOrders ] = useState({})
 
     const postSignUp = (signUp, e) => {
         e.preventDefault();
@@ -62,6 +63,12 @@ export const HealthyStoreProvider = ({ children }) => {
         .then(() => setCheckoutSuccess(true))
         .catch((e) => window.confirm(e.response.data))
     }
+
+    const getCheckout = () => {
+        axios.get("http://localhost:5500/checkout", {headers: {'Authorization': `Bearer ${userInfos.token}`}})
+        .then((answer) => setInfosOrders(answer))
+        .catch((e) => window.confirm(e.response.data));
+    }
     
     return (
         <HealthyStoreContexts.Provider
@@ -81,7 +88,9 @@ export const HealthyStoreProvider = ({ children }) => {
                 checkout,
                 setCheckout,
                 postCheckout,
-                checkoutSuccess
+                checkoutSuccess,
+                infosOrders,
+                getCheckout
             }}
         >
             { children }

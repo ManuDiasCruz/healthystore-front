@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import orange from "../../Images/orange.png";
+import { HealthyStoreContexts } from "../../contexts/UserContext"
+import { useContext } from 'react';
 
 export default function Checkout(){
+    const { getCheckout } = useContext(HealthyStoreContexts);
 
     return (
         <Container>
@@ -16,7 +19,7 @@ export default function Checkout(){
                 </Icon>
                 <H1>Pedido realizado com sucesso!</H1>
                 <Link to = "/orders">
-                    <Button>Histórico de pedidos</Button>
+                    <Button onClick = {() => getCheckout()}>Histórico de pedidos</Button>
                 </Link>
                 <Link to = "/">
                     <GoTo>Página inicial</GoTo>
