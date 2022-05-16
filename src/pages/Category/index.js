@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -17,14 +17,15 @@ import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
 
 import Icon from "../../components/CSSStyles/Icon";
 
-export default function HomePage(){
+export default function Category(){
     const [products, setProducts] = useState([]);
+    const category = useParams();
    
     useEffect(()=>{
         async function getProducts(){
             try{
                 const res = await axios.get(
-                    "http://localhost:5500/products")
+                    `http://localhost:5500/${category}`)
                 const {data} = res;                
                 console.log("HomePage: ", res)
                 setProducts(data);
@@ -69,31 +70,27 @@ export default function HomePage(){
                         placeholder="Pesquise seu produto..."></input> */}
                     <Icon src={shoppingbag} alt="Shopping bag"/>
                 </Header>
-                <WelcomeBar>
-                    <h1>Olá, {/* Fulana */}</h1>
-                    <h2>No que posso te ajudar hoje?</h2>
-                </WelcomeBar>
                 <NavBar>
                     <Element>
-                        <Link to={`/food`}>
+                        <Link to={`/products/food`}>
                             <Circle><Icon src={food} alt="Food category"/></Circle>
                             <p>Comidas</p>
                         </Link>
                     </Element>
                     <Element>
-                        <Link to={`/beverage`}>
+                        <Link to={`/products/beverage`}>
                             <Circle><Icon src={beverage} alt="Beverage category"/></Circle>
                             <p>Bebidas</p>
                         </Link>
                     </Element>
                     <Element>
-                        <Link to={`/vitamins`}>
+                        <Link to={`/products/vitamins`}>
                             <Circle><Icon src={vitamin} alt="Vitamin category"/></Circle>
                             <p>Vitaminas</p>
                         </Link>
                     </Element>
                     <Element>
-                        <Link to={`/suplements`}>
+                        <Link to={`/products/suplements`}>
                             <Circle><Icon src={suplement} alt="Suplement category"/></Circle>
                             <p>Suplementos</p>
                         </Link>
@@ -193,24 +190,6 @@ const Header = styled.header`
     flex-direction: row;
     justify-content: space-between;
     margin: 20px 20px 0px 20px;
-`;
-
-const WelcomeBar = styled.div`
-    font-family: 'Poiret One', cursive;
-    color: #000000;
-    margin: 20px 20px 10px 20px;
-
-    h1{        
-        font-size: 18px;
-        font-weight: 400;
-        margin-bottom: 8px;
-    }
-
-    h2{
-        font-size: 18px;
-        font-weight: 700;
-    }
-
 `;
 
 const NavBar = styled.div`
