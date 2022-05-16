@@ -39,10 +39,11 @@ const Product = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 `
 const Margin = styled.div`
-    width: 95%;
-    height: 85%;
+    width: 100%;
+    height: auto;
     border-radius: 20px;
     display: flex;
     justify-content: flex-start;
@@ -51,14 +52,14 @@ const Margin = styled.div`
 const Img = styled.img`
     width: 22%;
     border-radius: 5px;
-    margin: 10px;
 `
 const Information = styled.div`
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 10px;
 `
 const Quantity = styled.p`
     font-size: 16px;

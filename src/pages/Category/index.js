@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { HealthyStoreContexts } from "../../contexts/UserContext"
 
 // mongodb+srv://healthystore:healthystore@healthystore.dcm1j.mongodb.net/healthystore?retryWrites=true&w=majority
 
@@ -15,17 +16,19 @@ import beverage from "../../assets/icons/drink-svgrepo-com.svg"
 import vitamin from "../../assets/icons/vitamins-svgrepo-com.svg"
 import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
 
-import Icon from "../../components/CSSStyles/Icon";
+// import Icon from "../../components/CSSStyles/Icon";
 
 export default function Category(){
     const [products, setProducts] = useState([]);
-    const category = useParams();
+    const { userInfos } = useContext(HealthyStoreContexts);
+    const { category } = useParams()
+    console.log(category)
    
-    useEffect(()=>{
+    useEffect(() => {
         async function getProducts(){
             try{
                 const res = await axios.get(
-                    `http://localhost:5500/${category}`)
+                    `http://localhost:5500/productsCategory/${category}`)
                 const {data} = res;                
                 console.log("HomePage: ", res)
                 setProducts(data);
@@ -36,76 +39,64 @@ export default function Category(){
         getProducts()
     }, []);
 
-    
-    function searchProduct(){
-        return (
-            <h1>Testando</h1>
-        )
-    }
-
     return (
         <Container>
-            <CenterImg>
-                <Img src={orange}></Img>
-                <Logo> Healthy Store</Logo>
-            </CenterImg>
+            <Header>
+                <Link to="/sign-in">
+                    <IconIon>
+                        <ion-icon name="people-outline"></ion-icon>
+                    </IconIon>
+                </Link>
+                <Div>
+                    <Img src={orange}/>
+                    <Logo> Healthy Store </Logo>
+                </Div>
+                <Link to="/bag">
+                    <IconIon>
+                        <ion-icon name="bag-handle-outline"></ion-icon>
+                    </IconIon>
+                </Link>
+            </Header>
             <Center>
-                <Header>
-                    <Icon src={login} alt="Login"/>
-                    <SearchBar>
-                        <SearchText 
-                            id="searchBtn"
-                            type="text"
-                            name="search" 
-                            placeholder="Pesquise seu produto ..."/>
-                        <button id="myBtn" onClick={searchProduct()}>
-                            <SearchImg src={search} alt="Buscar"/>
-                        </button>
-                    </SearchBar>
-
-                    {/* <input id="searchbar" 
-                        onkeyup="search_animal()" 
-                        type="text"
-                        name="search" 
-                        placeholder="Pesquise seu produto..."></input> */}
-                    <Icon src={shoppingbag} alt="Shopping bag"/>
-                </Header>
+                <WelcomeBar>
+                    <h1>Olá, {userInfos.name}</h1>
+                    <h2>No que posso te ajudar hoje?</h2>
+                </WelcomeBar>
                 <NavBar>
-                    <Element>
-                        <Link to={`/products/food`}>
-                            <Circle><Icon src={food} alt="Food category"/></Circle>
-                            <p>Comidas</p>
-                        </Link>
-                    </Element>
-                    <Element>
-                        <Link to={`/products/beverage`}>
-                            <Circle><Icon src={beverage} alt="Beverage category"/></Circle>
-                            <p>Bebidas</p>
-                        </Link>
-                    </Element>
-                    <Element>
-                        <Link to={`/products/vitamins`}>
-                            <Circle><Icon src={vitamin} alt="Vitamin category"/></Circle>
-                            <p>Vitaminas</p>
-                        </Link>
-                    </Element>
-                    <Element>
-                        <Link to={`/products/suplements`}>
-                            <Circle><Icon src={suplement} alt="Suplement category"/></Circle>
-                            <p>Suplementos</p>
-                        </Link>
-                    </Element>
+                    <Link to={`/products/food`}>
+                        <Element>
+                                <Circle><Icon src={food} alt="Food category"/></Circle>
+                                <p>Comidas</p>
+                        </Element>
+                    </Link>
+                    <Link to={`/products/beverage`}>
+                        <Element>
+                                <Circle><Icon src={beverage} alt="Beverage category"/></Circle>
+                                <p>Bebidas</p>
+                        </Element>
+                    </Link>
+                    <Link to={`/products/vitamin`}>
+                        <Element>
+                                <Circle><Icon src={vitamin} alt="Vitamin category"/></Circle>
+                                <p>Vitaminas</p>
+                        </Element>
+                    </Link>
+                    <Link to={`/products/suplement`}>
+                        <Element>
+                                <Circle><Icon src={suplement} alt="Suplement category"/></Circle>
+                                <p>Suplementos</p>
+                        </Element>
+                    </Link>
                 </NavBar>
                 <ProductList>
                     {
                         products.length > 0 ?
                         products.map( product => {
                             const {_id, name, description, value, image, category} = product;
-                            const linkName = name.replaceAll(" ", "-");
                             return (
                                 <Product>
-                                    <Link to={`/product/${linkName}`}>
-                                        <img src={image} alt={name} />
+                                    <Link to={`/product/${_id}`}>
+                                        <img src={image} alt="" />
                                         <h1>{name}</h1>
                                         <h2>R$ {value}</h2>
                                     </Link>
@@ -115,7 +106,7 @@ export default function Category(){
                         :
                         <p>Carregando lista de produtos... </p>
                     }
-                </ProductList>
+                </ProductList> 
             </Center>
         </Container>
     );
@@ -144,7 +135,6 @@ const SearchImg = styled.img`
     width: 15px;
     height: 15px;
 `
-
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -162,19 +152,19 @@ const CenterImg = styled.div`
     align-items: center;
     flex-direction: column;
 `
-const Img = styled.img`
-    width: 80px;
-`
-const Logo = styled.div`
+const Logo = styled.h1`
     font-family: 'Poiret One', cursive;
     font-weight: 600;
-    width: 100%;
+    width: auto;
     height: 18%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 42px;
+    font-size: 25px;
     color: white;
+`
+const Img = styled.img`
+    width: 10%;
 `
 const Center = styled.div`
     width: 100vw;
@@ -185,13 +175,30 @@ const Center = styled.div`
     border-radius: 40px 40px 0px 0px;
     margin-top: 0px;
 `
-const Header = styled.header`
+const Header = styled.div`
+    width: 100%;
+    height: 10%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    margin: 20px 20px 0px 20px;
-`;
+    align-items: center;
+`
+const WelcomeBar = styled.div`
+    font-family: 'Poiret One', cursive;
+    color: #000000;
+    margin: 20px 20px 10px 20px;
 
+    h1{        
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 8px;
+    }
+
+    h2{
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+`
 const NavBar = styled.div`
     height: 100px;
     font-family: 'Raleway', sans-serif;
@@ -203,8 +210,7 @@ const NavBar = styled.div`
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-`;
-
+`
 const Circle = styled.div`
     width: 50px;
     height: 50px;
@@ -216,10 +222,12 @@ const Circle = styled.div`
 `;
 
 const Element = styled.div`
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    justify-content: center;
+
     p{
         margin-top: 10px;
         font-family: 'Roboto', sans-serif;
@@ -228,16 +236,15 @@ const Element = styled.div`
         color: #FFFFFF;
         text-align: center;
     }
-`;
-
+`
 const ProductList = styled.div`
     width: 100vw;
     padding: 0px 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-`;
-
+    overflow-y: hidden;
+`
 const Product = styled.div`
     width: 200px;
     height: 200px;
@@ -263,4 +270,26 @@ const Product = styled.div`
         font-weight: 700;
         margin-bottom: 8px;
     }
-`;
+`
+const Icon = styled.img`
+    width: 30px;
+    height: 45px;
+
+    border-radius: 10px;
+`
+const IconIon = styled.p`
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    &:active {
+        opacity: 0.7;
+    }
+`
+const Div = styled.div`
+    display: flex;
+    justify-content: center;
+`

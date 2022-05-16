@@ -1,26 +1,43 @@
 import styled from 'styled-components';
+import { HealthyStoreContexts } from "../../src/contexts/UserContext"
+import { useContext } from 'react';
 
 export default function OrderProduct() {
 
+    const { infosOrders } = useContext(HealthyStoreContexts);
+    let total = 0;
+
     return (
-        <Order>
-            <Margin>
-                <Day>31/06/22</Day>
-                <Information>
-                <Img src=""/>
-                    <Right>
-                        <Quantity>
-                            <p>Nome: ****</p>
-                            <p>Qtd.:: ****</p>
-                        </Quantity >
-                        <Value>
-                            <p>R$ 1000,00</p>
-                        </Value>
-                    </Right>
-                </Information>
-                <Price>Total: R$ ****</Price>
-            </Margin>
-        </Order>
+        <>
+            {infosOrders.map((product) => {
+            total = 0;
+            return(
+            <Order>
+                <Margin>
+                    <Day>{product.date}</Day>
+                        {(product.informations).map((order) => {
+                            total += (order.quantity * order.value);
+                            return ( 
+                            <>
+                                <Information>
+                                    <Img src={order.image}/>
+                                    <Right>
+                                        <Quantity>
+                                            <p>Nome: {order.name}</p>
+                                            <p>Qtd.: {order.quantity}</p>
+                                        </Quantity >
+                                        <Value>
+                                            <p>R$ {order.quantity*order.value}</p>
+                                        </Value>
+                                    </Right>
+                                </Information>
+                            </>
+                        )}) }
+                    <Price>Total: R$ {total.toFixed(2)}</Price>
+                </Margin>
+            </Order>)})
+            }
+        </>
     )
 }
 
@@ -36,7 +53,7 @@ const Margin = styled.div`
 `
 const Order = styled.div`
     width: 90%;
-    min-height: 20%;
+    min-height: auto;
     background: white;
     border-radius: 20px;
     margin-bottom: 10px;
@@ -64,6 +81,7 @@ const Information = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
 `
 const Right = styled.div`
     width: 100%;

@@ -21,7 +21,7 @@ export default function Router() {
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/product/:productId" element={<Product />} />
-                    <Route path="/:category" element={<Category />} />
+                    <Route path="/products/:category" element={<Category />} />
                     <Route path="/bag" element={<Bag />} />
                     <Route path="/PayInfos" element={<PayInfos />} />
                     <Route path="/checkout" element={<Checkout />} />

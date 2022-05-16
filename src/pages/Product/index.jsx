@@ -35,7 +35,7 @@ export default function Product(){
 
     const productInfos = {
         productName: addBag.name,
-        quantity: (number*addBag.value).toFixed(2),
+        quantity: number,
     }
     console.log(productInfos)
 
@@ -101,7 +101,7 @@ const Container = styled.div`
     color: #2E2E2E;
 `
 const Center = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 60%;
     display: flex;
     flex-direction: column;
@@ -133,20 +133,20 @@ const Icon = styled.p`
     }
 `
 const Img = styled.img`
-    width: 85%;
+    width: 65%;
     margin-bottom: 20px;
     border-radius: 10px;
     margin-top: 20px;
 `
 const Description = styled.p`
     font-size: 18px;
-    width: 80%;
+    width: 70%;
     text-align: center;
     line-height: 20px;
 `
 const Footer = styled.div`
     width: 100%;
-    height: 40%;
+    height: 30%;
     background: #2E2E2E;
     display: flex;
     justify-content: flex-start;
@@ -165,7 +165,7 @@ const Price = styled.div`
 `
 const Quantity = styled.div`
     width: 40%;
-    height: 40%;
+    height: 60%;
     background-color: white;
     display: flex;
     border-radius: 20px;

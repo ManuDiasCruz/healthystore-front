@@ -44,6 +44,7 @@ export const HealthyStoreProvider = ({ children }) => {
                 token: answer.data.token,
             }));
             setSignInSuccess(true);
+            console.log(answer);
             setUserInfos(answer.data);
         })
         .catch((e) => window.confirm(e.response.data));
@@ -70,14 +71,16 @@ export const HealthyStoreProvider = ({ children }) => {
     }
 
     const postCheckout = (infos) => {
-        axios.postSignUp("http://localhost:5500/checkout", infos, {headers: {'Authorization': `Bearer ${userInfos.token}`}})
+        console.log(infos)
+        axios.post("http://localhost:5500/checkout", infos, {headers: {'Authorization': `Bearer ${userInfos.token}`}})
         .then(() => setCheckoutSuccess(true))
+        .then(() => getCheckout())
         .catch((e) => window.confirm(e.response.data))
     }
 
     const getCheckout = () => {
         axios.get("http://localhost:5500/checkout", {headers: {'Authorization': `Bearer ${userInfos.token}`}})
-        .then((answer) => setInfosOrders(answer))
+        .then((answer) => {setInfosOrders(answer.data); console.log(infosOrders)})
         .catch((e) => window.confirm(e.response.data));
     }
     
