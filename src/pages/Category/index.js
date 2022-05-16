@@ -4,19 +4,12 @@ import axios from "axios";
 import styled from "styled-components";
 import { HealthyStoreContexts } from "../../contexts/UserContext"
 
-// mongodb+srv://healthystore:healthystore@healthystore.dcm1j.mongodb.net/healthystore?retryWrites=true&w=majority
-
-import login from "../../assets/icons/user-application-identity-authentication-login-svgrepo-com.svg";
-import shoppingbag from "../../assets/icons/shopping-bag-svgrepo-com.svg";
-import search from "../../assets/icons/search-svgrepo-com.svg";
 import orange from "../../Images/orange.png"
 
 import food from "../../assets/icons/vitamins-meal-svgrepo-com.svg"
 import beverage from "../../assets/icons/drink-svgrepo-com.svg"
 import vitamin from "../../assets/icons/vitamins-svgrepo-com.svg"
 import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
-
-// import Icon from "../../components/CSSStyles/Icon";
 
 export default function Category(){
     const [products, setProducts] = useState([]);
@@ -37,7 +30,7 @@ export default function Category(){
             }
         }
         getProducts()
-    }, []);
+    });
 
     return (
         <Container>
@@ -92,7 +85,7 @@ export default function Category(){
                     {
                         products.length > 0 ?
                         products.map( product => {
-                            const {_id, name, description, value, image, category} = product;
+                            const {_id, name, value, image} = product;
                             return (
                                 <Product>
                                     <Link to={`/product/${_id}`}>
@@ -112,29 +105,6 @@ export default function Category(){
     );
 }
 
-const SearchBar = styled.div`
-    border:solid 1px;
-    border-radius:15px;
-    border-color: #FDCE86;
-    width:300px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-`
-const SearchText = styled.input`
-    float:left;
-    background-color:transparent;
-    padding-left:5px;
-    font-style:italic;
-    font-size:14px;
-    border:none;
-    height:30px;
-    width:260px;
-`
-const SearchImg = styled.img`
-    width: 15px;
-    height: 15px;
-`
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -142,15 +112,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     background: #FB9759;
-`
-const CenterImg = styled.div`
-    width: 100%;
-    height: 190px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 `
 const Logo = styled.h1`
     font-family: 'Poiret One', cursive;

@@ -5,7 +5,7 @@ import { HealthyStoreContexts } from "../../contexts/UserContext"
 import RenderButton from "../../components/RenderButton";
 
 export default function PayInfos(){
-    const { infosBag, checkout, setCheckout, postCheckout, checkoutSuccess } = useContext(HealthyStoreContexts);
+    const { checkout, setCheckout, postCheckout, checkoutSuccess } = useContext(HealthyStoreContexts);
     const { address, cpf, payment } = checkout
     const [ disabled, setDisabled ] = useState(false);
 

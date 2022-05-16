@@ -5,8 +5,6 @@ import styled from "styled-components";
 import RenderButton from "../../components/RenderButton";
 import { HealthyStoreContexts } from "../../contexts/UserContext"
 
-import orange from "../../Images/orange.png"
-
 export default function Product(){
     const { productId } = useParams();
 
@@ -17,7 +15,7 @@ export default function Product(){
     useEffect(() => {
         async function getProduct(){
             try{
-                const res = await axios.get(
+                await axios.get(
                     `http://localhost:5500/product/${productId}`)
                 .then((answer) => {
                     console.log(answer.data);
@@ -29,7 +27,7 @@ export default function Product(){
             }
         }
         getProduct()
-    }, []);
+    });
 
     const navigate = useNavigate();
 
@@ -44,7 +42,7 @@ export default function Product(){
         setDisabled(true)
         console.log(productInfos)
         postBag(productInfos);
-        if(addBagSuccess == true){
+        if(addBagSuccess === true){
             navigate('/bag')
         }
         setDisabled(false)
@@ -72,7 +70,7 @@ export default function Product(){
             <Footer>
                 <Price>
                     <Quantity>
-                        <OneLess onClick = {() => {number != 1 ? setNumber(number - 1) : setNumber(1)}}>
+                        <OneLess onClick = {() => {number !== 1 ? setNumber(number - 1) : setNumber(1)}}>
                             <ion-icon name="caret-back-outline"></ion-icon>
                         </OneLess>
                         <Number>{number}</Number>
