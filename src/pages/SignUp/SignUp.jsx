@@ -47,7 +47,7 @@ export default function Register() {
                         disabled = {disabled}
                         type = "password"
                         value = {password}
-                        pattern = "[0-9a-zA-Z]{3,30}"
+                        min = "4"
                         title = "A senha deve conter no mínimo 3 caracteres"
                         placeholder = "Senha"
                         required

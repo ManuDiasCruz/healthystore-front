@@ -26,7 +26,7 @@ export default function HomePage(){
                 console.log("Error getting products list.", error)
             }
         }
-        getProducts()
+        getProducts();
     }, []);
 
     return (
@@ -49,7 +49,7 @@ export default function HomePage(){
             </Header>
             <Center>
                 <WelcomeBar>
-                    <h1>Olá, {userInfos.name}</h1>
+                    <h1>Olá{userInfos.name ? " " + userInfos.name : ""}!</h1>
                     <h2>No que posso te ajudar hoje?</h2>
                 </WelcomeBar>
                 <NavBar>
@@ -109,9 +109,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     background: #FB9759;
+    font-family: 'Raleway', sans-serif;
 `
 const Logo = styled.h1`
-    font-family: 'Poiret One', cursive;
     font-weight: 600;
     width: auto;
     height: 18%;
@@ -122,17 +122,16 @@ const Logo = styled.h1`
     color: white;
 `
 const Img = styled.img`
-    width: 10%;
+    width: 12%;
 `
 const Center = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
     border-radius: 40px 40px 0px 0px;
-    margin-top: 0px;
 `
 const Header = styled.div`
     width: 100%;
@@ -143,8 +142,7 @@ const Header = styled.div`
 `
 const WelcomeBar = styled.div`
     width: 90%;
-    font-family: 'Poiret One', cursive;
-    color: #000000;
+    color: #353535;
     margin: 20px 20px 10px 20px;
 
     h1{        
@@ -155,26 +153,27 @@ const WelcomeBar = styled.div`
 
     h2{
         font-size: 18px;
-        font-weight: 700;
+        font-weight: 500;
     }
 
 `
 const NavBar = styled.div`
-    height: 100px;
+    height: 110px;
     width: 90%;
-    font-family: 'Raleway', sans-serif;
-    background-color: #FF9859;
-    margin: 20px 18px 18px;
+    background-color: #FB9759;
+    margin: 20px 18px 0px;
+    padding-left: 120px;
     border-radius: 10px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    overflow-x: scroll;
 `
 const Circle = styled.div`
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     background-color: #FFFFFF;
     border-radius: 50%;
     display: flex;
@@ -183,16 +182,16 @@ const Circle = styled.div`
 `;
 
 const Element = styled.div`
-    width: auto;
+    min-width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-bottom: 4px;
 
     p{
         margin-top: 10px;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 800;
+        font-weight: 600;
         font-size: 12;
         color: #FFFFFF;
         text-align: center;
@@ -200,36 +199,47 @@ const Element = styled.div`
 `
 const ProductList = styled.div`
     width: 90%;
-    padding: 0px 40px;
+    height: 67%;
     display: flex;
-    flex-direction: row;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    justify-content: space-between;
     justify-content: space-evenly;
-    overflow-y: hidden;
+
+    p{
+        height: 20px;
+        font-weight: 500;
+        font-size: 12;
+        color: #353535;
+        text-align: center;
+    }
 `
 const Product = styled.div`
-    width: 200px;
+    width: 45%;
     height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     img{
-        max-width: 160px;
+        max-width: 100%;
         height: 160px;
+        border-radius: 10px;
     }
 
     h1{
-        font-family: 'Raleway', sans-serif;
         font-size: 16px;
         font-weight: 700;
-        margin-bottom: 8px;
+        margin: 8px 0px 8px 0px;
+        color: #353535;
     }
 
     h2{
-        font-family: 'Lexend-Deca';
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 500;
         margin-bottom: 8px;
+        color: #353535;
     }
 `
 const Icon = styled.img`
@@ -245,6 +255,7 @@ const IconIon = styled.p`
     border-radius: 50%;
     display: flex;
     align-items: center;
+    margin: 10px;
 
     &:active {
         opacity: 0.7;

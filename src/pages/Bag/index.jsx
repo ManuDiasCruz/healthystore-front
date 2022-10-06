@@ -73,7 +73,7 @@ const Center = styled.div`
 const Icon = styled.p`
     font-size: 30px;
     color: white;
-    padding: 10px;
+    padding: 15px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -111,7 +111,7 @@ const Itens = styled.p`
     color: white;
 `
 const Buy = styled.div`
-    width: 70%;
+    width: 75%;
     height: 90%;
     border: 2px solid #FB9759;;
     border-radius: 5px;
@@ -126,7 +126,7 @@ const Value = styled.p`
 `
 const Confirm = styled.div`
     width: 55%;
-    height: 100%;
+    height: 105%;
     color: white;
     padding: 10px 25px 10px 25px;
     font-weight: 600;

@@ -24,6 +24,11 @@ export default function SignIn() {
 
     return (
         <Container>
+            <Header>
+                <Icon onClick={() => navigate('/')}>
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </Icon>
+            </Header>
             <CenterImg>
                 <Img src={orange}/>
                 <Logo> Healthy Store </Logo>
@@ -80,6 +85,22 @@ const Center = styled.div`
     flex-direction: column;
     background-color: white;
     border-radius: 40px 40px 0px 0px;
+`
+const Header = styled.header`
+    width: 100%;
+    padding: 10px;
+`
+const Icon = styled.p`
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    &:active {
+        opacity: 0.7;
+    }
 `
 const Logo = styled.h1`
     font-family: 'Poiret One', cursive;
