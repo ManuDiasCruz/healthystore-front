@@ -28,7 +28,7 @@ export const HealthyStoreProvider = ({ children }) => {
     const [ checkoutSuccess, setCheckoutSuccess ] = useState(false)
     const [ infosOrders, setInfosOrders ] = useState({})
     const [ addBag, setAddBag ] = useState({})
-    const [ addBagSuccess, setAddBagSuccess ] = useState(false)
+    const [ display, setDisplay ] = useState("hidden")
 
     const postSignUp = (signUp) => {
         axios.post("http://localhost:5500/sign-up", signUp)
@@ -52,14 +52,29 @@ export const HealthyStoreProvider = ({ children }) => {
     const getProducts = () => {
         axios.get("http://localhost:5500/products")
         .then((answer) => setProducts(answer.data))
-        .catch((e) => window.confirm(e.response.data))
+        .catch((e) => window.confirm(e.response.data));
+    }
+    
+    const getProduct = (productId) => {
+        axios.get(`http://localhost:5500/product/${productId}`)
+        .then((answer) => setAddBag(answer.data))
+        .catch((e) => window.confirm(e.response.data));
     }
 
-    const postBag = (infosProduct) => {
-        axios.post("http://localhost:5500/bag", infosProduct,  {headers: {'Authorization': `Bearer ${userInfos.token}`}})
-        .then((e) => {setAddBagSuccess(true); alert('Produto adiconado a sacola')})
-        .then(() => getBag())
-        .catch((e) => window.confirm(e.response.data))
+    const postBag = (infosProduct, token) => {
+        axios.post("http://localhost:5500/bag", infosProduct,  {headers: {'Authorization': `Bearer ${token}`}})
+        .then((e) => {
+            alert('Produto adiconado a sacola'); 
+            getBag();
+            navigate('/bag')
+        })
+        .catch((e) => {
+            if(e.response.data == "Token invalido") {
+                setDisplay("visible");   
+            } else {
+                window.confirm(e.response.data);
+            }
+        })
     }
 
     const getBag = () => {
@@ -111,9 +126,11 @@ export const HealthyStoreProvider = ({ children }) => {
                 addBag,
                 setAddBag,
                 postBag,
-                addBagSuccess,
+                display,
                 products,
-                getProducts
+                getProducts,
+                getProduct,
+                setDisplay
             }}
         >
             { children }

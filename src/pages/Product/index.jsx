@@ -11,25 +11,12 @@ export default function Product(){
 
     const [ disabled, setDisabled ] = useState(false);
     const [ number, setNumber ] = useState(1);
-    const { addBag, setAddBag, postBag, addBagSuccess } = useContext(HealthyStoreContexts);
-
+    const { addBag, postBag, getProduct, display } = useContext(HealthyStoreContexts);
 
     useEffect(() => {
-        async function getProduct(){
-            try{
-                await axios.get(
-                    `http://localhost:5500/product/${productId}`)
-                .then((answer) => {
-                    setAddBag(answer.data);
-                })
-                .catch((error) => console.log(error))       
-            } catch (error) {
-                console.log("Error getting products list.", error)
-            }
-        }
-        getProduct()
+        getProduct(productId)
     },[]);
- 
+
     const navigate = useNavigate();
 
     const productInfos = {
@@ -41,9 +28,6 @@ export default function Product(){
         e.preventDefault()
         setDisabled(true)
         postBag(productInfos);
-        if(addBagSuccess === true){
-            navigate('/bag')
-        }
         setDisabled(false)
     }
 
@@ -82,14 +66,13 @@ export default function Product(){
                 </Button>
             </Footer>
             <Warning 
-                display = {"show"}
+                display = {display}
                 text = "Para adicionar o produto é necessário fazer o login"
                 textButtonOne = "Login"
                 textButtonTwo = "Cancelar"
                 navigateOne = "/sign-in"
                 navigateTwo = "/"
-            /> 
-            {/* arrumar a variável após contexts */}
+            />
         </Container>
     );
 }

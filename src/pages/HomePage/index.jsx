@@ -11,12 +11,13 @@ import vitamin from "../../assets/icons/vitamins-svgrepo-com.svg"
 import suplement from "../../assets/icons/vitamins-vitamin-svgrepo-com.svg"
 
 export default function HomePage(){
-    const { userInfos, products, getProducts } = useContext(HealthyStoreContexts);
+    const { userInfos, products, getProducts, setDisplay } = useContext(HealthyStoreContexts);
    
     const navigate = useNavigate();
 
     useEffect(() => {
-        getProducts()
+        getProducts();
+        setDisplay("hidden");
     }, []);
 
     return (

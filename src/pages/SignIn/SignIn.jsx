@@ -7,7 +7,7 @@ import style from "./Style";
 import { useEffect } from "react";
 
 export default function SignIn() {
-    const { infosLogin, setInfosLogin, postSignIn } = useContext(HealthyStoreContexts);
+    const { infosLogin, setDisplay, setInfosLogin, postSignIn, setAddBagSuccess } = useContext(HealthyStoreContexts);
     const { email, password } = infosLogin;
     const [ disabled, setDisabled ] = useState(false);
 
@@ -15,6 +15,7 @@ export default function SignIn() {
 
     useEffect(() => {
         setInfosLogin({email: "", password: ""});
+        setDisplay("hidden");
     },[]);
 
     function OnSubmit(e) {

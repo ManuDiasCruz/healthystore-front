@@ -1,11 +1,15 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { HealthyStoreContexts } from "../contexts/UserContext";
 
 export default function Warning(props) {
+    const { display } = useContext(HealthyStoreContexts);
+
     const navigate = useNavigate();
 
     return (
-        <WarningDiv display = {props.display}>
+        <WarningDiv display = {display}>
             <div>
                 <h1>{props.text}</h1>
                 <Login onClick={() => navigate(`${props.navigateOne}`)}>{props.textButtonOne}</Login>
@@ -20,7 +24,7 @@ const WarningDiv = styled.div`
     height: 100vh;
     position: absolute;
     background-color: rgba(00, 00, 00, 0.5);
-    display: ${props => props.display};
+    visibility: ${props => props.display};
 
     div {
         width: 80%;
