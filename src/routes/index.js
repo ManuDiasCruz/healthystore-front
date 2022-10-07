@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import { HealthyStoreProvider } from "../contexts/UserContext"
 
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/HomePage/index";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import Product from "../pages/Product";
