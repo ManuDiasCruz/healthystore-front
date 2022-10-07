@@ -13,7 +13,6 @@ export const HealthyStoreProvider = ({ children }) => {
         password: "",
         repeatedPassword: "",
     })
-    const [ signUpSuccess, setSignUpSuccess ] = useState(false);
     const [ infosLogin, setInfosLogin ] = useState({
         email: "", 
         password: "",
@@ -30,10 +29,9 @@ export const HealthyStoreProvider = ({ children }) => {
     const [ addBag, setAddBag ] = useState({})
     const [ addBagSuccess, setAddBagSuccess ] = useState(false)
 
-    const postSignUp = (signUp, e) => {
-        e.preventDefault();
+    const postSignUp = (signUp) => {
         axios.post("http://localhost:5500/sign-up", signUp)
-        .then(() => setSignUpSuccess(true))
+        .then(() => navigate('/sign-in'))
         .catch((e) => window.confirm(e.response.data))
     }
 
@@ -89,7 +87,6 @@ export const HealthyStoreProvider = ({ children }) => {
             value = {{
                 signUp,
                 setSignUp,
-                signUpSuccess,
                 postSignUp,
                 infosLogin,
                 setInfosLogin,

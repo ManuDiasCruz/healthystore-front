@@ -1,18 +1,18 @@
-import styled from 'styled-components';
+import styled from "styled-components"
 
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-end;
     flex-direction: column;
     background: #FB9759;
 `
 const Center = styled.div`
     width: 100%;
-    height: 45%;
+    height: 68%;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -23,18 +23,19 @@ const Center = styled.div`
 const Header = styled.header`
     width: 100%;
     padding: 10px;
+    position: absolute;
+    top: 0;
 `
-const Icon = styled.p`
-    font-size: 30px;
-    color: white;
-    padding: 15px 0px 0px 10px;
-    border-radius: 50%;
+const CenterImg = styled.div`
+    width: 100%;
+    height: 55%;
     display: flex;
+    justify-content: center;
     align-items: center;
-
-    &:active {
-        opacity: 0.7;
-    }
+    flex-direction: column;
+`
+const Img = styled.img`
+    width: 40%;
 `
 const Logo = styled.h1`
     font-family: 'Poiret One', cursive;
@@ -46,6 +47,18 @@ const Logo = styled.h1`
     align-items: center;
     font-size: 42px;
     color: white;
+`
+const Icon = styled.p`
+    font-size: 30px;
+    color: white;
+    padding: 15px 0px 0px 10px;    
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    &:active {
+        opacity: 0.7;
+    }
 `
 const Form = styled.form`
     width: 100%;
@@ -84,15 +97,12 @@ const Button = styled.button`
     font-weight: 700;
     line-height: 26px;
     color: white;
-    cursor: pointer;
 
-    &:disabled {
+&:disabled {
     opacity: 0.7;
-    cursor: default;
-  }
+}
 `
 const GoTo = styled.p`
-    width: 100vw;
     margin-top: 20px;
     color: #FB9759;
     text-decoration: none;
@@ -101,27 +111,15 @@ const GoTo = styled.p`
     font-weight: 700;
     line-height: 18px;
     letter-spacing: 0em;
-    text-align: center;
+    text-align: left;
     font-style: none;
-`
-const CenterImg = styled.div`
-    width: 100%;
-    height: 55%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-`
-const Img = styled.img`
-    width: 40%;
 `
 
 const style = {
     Container,
-    Center,
     Header,
     Icon,
+    Center,
     Logo,
     Form,
     Input,
