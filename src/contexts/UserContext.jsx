@@ -1,9 +1,12 @@
 import React, { createContext, useState } from 'react';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const HealthyStoreContexts = createContext({});
 
 export const HealthyStoreProvider = ({ children }) => {
+    const navigate = useNavigate();
+
     const [ signUp, setSignUp ] = useState({
         username: "",
         email: "",
@@ -16,7 +19,6 @@ export const HealthyStoreProvider = ({ children }) => {
         password: "",
     });
     const [ userInfos, setUserInfos ] = useState({}); // O TOKEN ESTÁ AQUI
-    const [ signInSuccess, setSignInSuccess ] = useState(false)
     const [ infosBag, setInfosBag ] = useState([])
     const [ checkout, setCheckout ] = useState({
         address: "",
@@ -35,16 +37,15 @@ export const HealthyStoreProvider = ({ children }) => {
         .catch((e) => window.confirm(e.response.data))
     }
 
-    const postSignIn = (infosLogin, e) => {
-        e.preventDefault();
+    const postSignIn = (infosLogin) => {
         axios.post("http://localhost:5500/sign-in", infosLogin)
         .then((answer) => {
             localStorage.setItem("user", JSON.stringify({
                 name: answer.data.name,
                 token: answer.data.token,
             }));
-            setSignInSuccess(true);
             setUserInfos(answer.data);
+            navigate('/');
         })
         .catch((e) => window.confirm(e.response.data));
     }
@@ -92,7 +93,6 @@ export const HealthyStoreProvider = ({ children }) => {
                 postSignUp,
                 infosLogin,
                 setInfosLogin,
-                signInSuccess,
                 postSignIn,
                 userInfos,
                 getBag,

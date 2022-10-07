@@ -14,8 +14,8 @@ import Orders from "../pages/Orders/index"
 
 export default function Router() {
     return(
-        <HealthyStoreProvider>
-            <BrowserRouter>
+        <BrowserRouter>
+            <HealthyStoreProvider>
                 <Routes>
                     <Route path="/" element={<HomePage/>} />
                     <Route path="/sign-in" element={<SignIn />} />
@@ -27,7 +27,7 @@ export default function Router() {
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/orders" element={<Orders />} />
                 </Routes>
-            </BrowserRouter>
-        </HealthyStoreProvider>
+            </HealthyStoreProvider>
+        </BrowserRouter>
 	)
 }
