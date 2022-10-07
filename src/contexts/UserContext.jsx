@@ -24,6 +24,7 @@ export const HealthyStoreProvider = ({ children }) => {
         cpf: "",
         payment: "",
     })
+    const [products, setProducts] = useState([]);
     const [ checkoutSuccess, setCheckoutSuccess ] = useState(false)
     const [ infosOrders, setInfosOrders ] = useState({})
     const [ addBag, setAddBag ] = useState({})
@@ -46,6 +47,12 @@ export const HealthyStoreProvider = ({ children }) => {
             navigate('/');
         })
         .catch((e) => window.confirm(e.response.data));
+    }
+
+    const getProducts = () => {
+        axios.get("http://localhost:5500/products")
+        .then((answer) => setProducts(answer.data))
+        .catch((e) => window.confirm(e.response.data))
     }
 
     const postBag = (infosProduct) => {
@@ -104,7 +111,9 @@ export const HealthyStoreProvider = ({ children }) => {
                 addBag,
                 setAddBag,
                 postBag,
-                addBagSuccess
+                addBagSuccess,
+                products,
+                getProducts
             }}
         >
             { children }
