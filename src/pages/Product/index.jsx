@@ -4,29 +4,18 @@ import axios from "axios";
 import styled from "styled-components";
 import RenderButton from "../../components/RenderButton";
 import { HealthyStoreContexts } from "../../contexts/UserContext"
+import Warning from "../../components/Warning";
 
 export default function Product(){
     const { productId } = useParams();
 
     const [ disabled, setDisabled ] = useState(false);
     const [ number, setNumber ] = useState(1);
-    const { addBag, setAddBag, postBag, addBagSuccess } = useContext(HealthyStoreContexts);
+    const { addBag, postBag, getProduct, display } = useContext(HealthyStoreContexts);
 
     useEffect(() => {
-        async function getProduct(){
-            try{
-                await axios.get(
-                    `http://localhost:5500/product/${productId}`)
-                .then((answer) => {
-                    setAddBag(answer.data);
-                })
-                .catch((error) => console.log(error))       
-            } catch (error) {
-                console.log("Error getting products list.", error)
-            }
-        }
-        getProduct()
-    });
+        getProduct(productId)
+    },[]);
 
     const navigate = useNavigate();
 
@@ -39,48 +28,51 @@ export default function Product(){
         e.preventDefault()
         setDisabled(true)
         postBag(productInfos);
-        if(addBagSuccess === true){
-            navigate('/bag')
-        }
         setDisabled(false)
     }
 
     return (
         <Container>
             <Header>
-                <Link to="/">
-                    <Icon>
-                        <ion-icon name="chevron-back-outline"></ion-icon>
-                    </Icon>
-                </Link>
-                <Link to='/bag'>
-                    <Icon>
-                        <ion-icon name="bag-handle-outline"></ion-icon>
-                    </Icon>
-                </Link>
+                <Icon onClick={() => navigate('/')}>
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </Icon>
+                <Icon onClick={() => navigate('/bag')}>
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                </Icon>
             </Header>
             <Center>
-                <H1>{addBag.name}</H1>
                 <Img src={addBag.image} />
-                <Description>{addBag.description}</Description>
             </Center>
             <Footer>
                 <Price>
-                    <Quantity>
-                        <OneLess onClick = {() => {number !== 1 ? setNumber(number - 1) : setNumber(1)}}>
-                            <ion-icon name="caret-back-outline"></ion-icon>
-                        </OneLess>
-                        <Number>{number}</Number>
-                        <OneMore onClick = {() => setNumber(number + 1)}>
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                        </OneMore>
-                    </Quantity>
-                    <Value>R$ {(number*addBag.value).toFixed(2)}</Value>
+                    <h1>{addBag.name}</h1>
+                    <div>
+                        <Quantity>
+                            <OneLess onClick = {() => {number !== 1 ? setNumber(number - 1) : setNumber(1)}}>
+                                <ion-icon name="caret-back-outline"></ion-icon>
+                            </OneLess>
+                            <Number>{number}</Number>
+                            <OneMore onClick = {() => setNumber(number + 1)}>
+                                <ion-icon name="caret-forward-outline"></ion-icon>
+                            </OneMore>
+                        </Quantity>
+                        <Value>R$ {(number*addBag.value).toFixed(2)}</Value>
+                    </div>
+                    <p>Informações: {addBag.description}</p>
                 </Price>
                 <Button onClick={(e) => SendBag(e)} >
                     <RenderButton state={disabled} text="Adicionar a sacola"/>
                 </Button>
             </Footer>
+            <Warning 
+                display = {display}
+                text = "Para adicionar o produto é necessário fazer o login"
+                textButtonOne = "Login"
+                textButtonTwo = "Cancelar"
+                navigateOne = "/sign-in"
+                navigateTwo = "/"
+            />
         </Container>
     );
 }
@@ -103,10 +95,6 @@ const Center = styled.div`
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
-`
-const H1 = styled.div`
-    font-size: 20px;
-    font-weight: 500;
 `
 const Header = styled.header`
     display: flex;
@@ -133,30 +121,56 @@ const Img = styled.img`
     border-radius: 10px;
     margin-top: 20px;
 `
-const Description = styled.p`
-    font-size: 18px;
-    width: 70%;
-    text-align: center;
-    line-height: 20px;
-`
 const Footer = styled.div`
     width: 100%;
-    height: 30%;
+    height: 40%;
     background: #2E2E2E;
     display: flex;
+    position: absolute;
+    bottom: 0;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
     border-radius: 40px 40px 0px 0px;
 `
 const Price = styled.div`
     width: 90%;
-    height: 30%;
+    height: 100%;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     margin-bottom: 60px;
+
+    h1 {
+        width: 100%;
+        text-align: left;
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    div {
+        width: 100%;
+        height: 75%;
+        display: flex;
+        align-items: center;
+    }
+
+    p {
+        padding-top: 20px;
+        width: 100%;
+        height: 100%;
+        text-align: justify;
+        overflow-y: scroll;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
 `
 const Quantity = styled.div`
     width: 40%;
@@ -203,6 +217,8 @@ const Button = styled.button`
     border-radius: 10px;
     background: #FB9759;
     display: flex;
+    position: absolute;
+    bottom: 20px;
     align-items: center;
     justify-content: center;
     border: none;

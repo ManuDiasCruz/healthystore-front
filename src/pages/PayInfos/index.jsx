@@ -12,9 +12,6 @@ export default function PayInfos(){
     const navigate = useNavigate();
     
     function OnSubmit(e) {
-        if(!window.confirm('Gostaria de finalizar a compra?')){
-            return
-        }
         e.preventDefault();
         setDisabled(true);
         postCheckout(checkout);
@@ -55,8 +52,8 @@ export default function PayInfos(){
                                 type = "cpf"
                                 value = {cpf}
                                 placeholder = "CPF"
-                                pattern = "[0-9]{8}"
-                                title = "O cpf deve conter 8 números"
+                                pattern = "[0-9]{11}"
+                                title = "O cpf deve conter apenas números"
                                 required
                                 onChange = {(e) => setCheckout({...checkout, cpf: e.target.value})}
                             />
@@ -169,9 +166,11 @@ const Input = styled.input`
 `
 const Button = styled.button`
     width: 80%;
-    height: 12%;
+    height: 8%;
     border-radius: 10px;
     background: #FB9759;
+    position: absolute;
+    bottom: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
